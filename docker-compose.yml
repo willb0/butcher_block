@@ -1,0 +1,20 @@
+
+services:
+  api:
+    build: ./scraper_api
+    ports: 
+      - "80:80"
+    networks: 
+      - my-network
+  frontend:
+    build: ./frontend
+    ports: 
+      - "81:81"
+    networks: 
+      - my-network
+    links: 
+      - api
+    depends_on:
+      - api
+networks:
+  my-network:

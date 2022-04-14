@@ -14,16 +14,17 @@ I think it will be a multiple step process:
 
 ### Setup
 
-**Docker**
+**Docker-compose**
 You need BuildKit enabled, can do so with `export DOCKER_BUILDKIT=1`
 ```bash
-docker build -t butcher_block .
-docker run -d -p 8501:8501 butcher_block
+docker-compose build
+docker-compose up
 ```
 **python**
-with pyenv
+with pyenv and pyenv-virtualenv
 ```
 pyenv virtualenv 3.8.10 butcher-block-3.8.10
 pyenv activate butcher-block-3.8.10
-streamlit run src/dash.py
+pip install -r scraper_api/requirements.txt frontend/requirements.txt
+uvicorn scraper_api.main:api --host 0.0.0.0 --port 80 && streamlit run frontend/dash.py --server.port=81
 ```
